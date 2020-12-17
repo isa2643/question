@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResponseController {
 
+    /**  .*/
     @GetMapping("/response")
-    public String answer(@RequestParam long final questionId, @RequestParam Boolean answer, @RequestParam long userId) {
+
+    /**  @questionId 
+     * 
+     * .*/
+    public String answer(@RequestParam final long questionId, @RequestParam final Boolean answer,
+            @RequestParam final long userId) {
         String response;
 
         if (answer == Boolean.TRUE) {

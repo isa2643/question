@@ -1,29 +1,33 @@
-/**
- * 
- */
 package fr.gamedev.question.greeting;
 
 /**
  * @author djer1
  *
  */
+/** .*/
 public class Greeting {
-	
-	private final long id;
-	private final String content;
 
-	public Greeting(long id, String content) {
-		this.id = id;
-		this.content = content;
-	}
+    /** .*/
+    private final long id;
+    /** .*/
+    private final String content;
 
-	public long getId() {
-		return id;
-	}
+    /** .
+     * @param theId ...
+     * @param theContent ...*/
+    public Greeting(final long theId, final String theContent) {
+        this.id = theId;
+        this.content = theContent;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    /** .*/
+    public long getId() {
+        return id;
+    }
 
+    /** .*/
+    public String getContent() {
+        return content;
+    }
 
 }

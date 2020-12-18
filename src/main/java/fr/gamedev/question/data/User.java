@@ -30,7 +30,21 @@ public class User {
     private String lastName;
     /** Tag.*/
     @ManyToMany
-    private List<Tag> tags;
+    private List<Tag> interests;
+
+    /**
+     * @return the interests
+     */
+    public List<Tag> getInterests() {
+        return interests;
+    }
+
+    /**
+     * @param theInterests the interests to set
+     */
+    public void setInterests(final List<Tag> theInterests) {
+        this.interests = theInterests;
+    }
 
     /**
      * @return the id
@@ -72,20 +86,6 @@ public class User {
      */
     public void setLastName(final String theLastName) {
         this.lastName = theLastName;
-    }
-
-    /**
-     * @return the tags
-     */
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    /**
-     * @param theTags the tags to set
-     */
-    public void setTags(final List<Tag> theTags) {
-        this.tags = theTags;
     }
 
 }

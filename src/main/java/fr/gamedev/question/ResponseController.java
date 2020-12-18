@@ -1,8 +1,20 @@
 package fr.gamedev.question;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import fr.gamedev.question.data.Answer;
+import fr.gamedev.question.data.Question;
+import fr.gamedev.question.data.User;
+import fr.gamedev.question.data.UserAnswer;
+import fr.gamedev.question.repository.AnswerRepository;
+import fr.gamedev.question.repository.QuestionRepository;
+import fr.gamedev.question.repository.UserAnswerRepository;
+import fr.gamedev.question.repository.UserRepository;
 
 /**
  * @author djer1
@@ -11,25 +23,69 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResponseController {
 
-    /**  .*/
-    @GetMapping("/response")
+    /**  answerRepo.*/
+    @Autowired
+    private AnswerRepository answerRepo;
 
-    /**  @questionId 
-     * 
-     * .*/
+    /**  questionRepo.*/
+    @Autowired
+    private QuestionRepository questionRepo;
+
+    /**  userRepo.*/
+    @Autowired
+    private UserRepository userRepo;
+
+    /**  userAnswerRepo.*/
+    @Autowired
+    private UserAnswerRepository userAnswerRepo;
+
+    /**  @questionId.
+     * @param questionId Id of the question
+     * @param answer user answer
+     * @param userId Id of the user
+     * @return display basic message */
+    @GetMapping("/reponse")
     public String answer(@RequestParam final long questionId, @RequestParam final Boolean answer,
             @RequestParam final long userId) {
-        String response;
 
-        if (answer == Boolean.TRUE) {
-            //Ajouter des points
+        UserAnswer userAnswer = new UserAnswer();
+        userAnswer.setPoints(0);
 
-            response = "Bravo ! vous avez trouvé ! ";
+        Optional<Question> question = questionRepo.findById(questionId);
+        Optional<Answer> answerData;
+        String response = "Oops ! Ca n'est pas correcte";
+        boolean isOk = true;
+
+        if (!question.isEmpty()) {
+
+            answerData = answerRepo.findByQuestion(question.get());
+            if (!answerData.isEmpty()) {
+
+                if (answer == answerData.get().getCorrectAnswer()) {
+
+                    userAnswer.setAnswer(answerData.get());
+
+                    response = "Bravo ! vous avez trouvé ! ";
+                    userAnswer.setPoints(10);
+                }
+            } else {
+                isOk = false;
+            }
         } else {
-            //Ne pas ajouter de points
-            response = "Oops ! Ca n'est pas correcte";
+            isOk = false;
         }
 
+        Optional<User> user = userRepo.findById(userId);
+
+        if (!user.isEmpty()) {
+            userAnswer.setUser(user.get());
+        } else {
+            isOk = false;
+        }
+
+        if (isOk) {
+            userAnswerRepo.save(userAnswer);
+        }
         return response;
     }
 

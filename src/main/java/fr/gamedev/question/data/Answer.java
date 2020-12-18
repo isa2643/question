@@ -16,14 +16,16 @@ import org.hibernate.annotations.Parameter;
 public class Answer {
     /** Answer Id. **/
     @GeneratedValue(generator = "seq_gen_answer")
-    @GenericGenerator(name = "seq_gen_answer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-            @Parameter(name = "sequence_name", value = "seq_answer"), @Parameter(name = "initial_value", value = "0"),
-            @Parameter(name = "increment_size", value = "1") })
+    @GenericGenerator(name = "seq_gen_answer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = { @Parameter(name = "sequence_name", value = "seq_answer"),
+                    @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
 
+    /** question.*/
     @OneToOne
     private Question question;
+    /** correctAnswer.*/
     private Boolean correctAnswer;
 
     /**
@@ -34,10 +36,10 @@ public class Answer {
     }
 
     /**
-     * @param id the id to set
+     * @param theId the id to set
      */
-    public void setId(final long id) {
-        this.id = id;
+    public void setId(final long theId) {
+        this.id = theId;
     }
 
     /**
@@ -48,10 +50,10 @@ public class Answer {
     }
 
     /**
-     * @param question the question to set
+     * @param theQuestion the question to set
      */
-    public void setQuestion(final Question question) {
-        this.question = question;
+    public void setQuestion(final Question theQuestion) {
+        this.question = theQuestion;
     }
 
     /**
@@ -62,10 +64,10 @@ public class Answer {
     }
 
     /**
-     * @param correctAnswer the correctAnswer to set
+     * @param theCorrectAnswer the correctAnswer to set
      */
-    public void setCorrectAnswer(final Boolean correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectAnswer(final Boolean theCorrectAnswer) {
+        this.correctAnswer = theCorrectAnswer;
     }
 
 }

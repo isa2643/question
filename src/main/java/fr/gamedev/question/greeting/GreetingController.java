@@ -21,10 +21,14 @@ author djer1
 @RestController
 public class GreetingController {
 
+    /** .*/
     private static final String TEMPLATE = "Hello, %s!";
+    /** .*/
     private final AtomicLong counter = new AtomicLong();
 
-    /** .*/
+    /**@param name .
+     * @return Greeting.
+     * */
     @GetMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") final String name) {
         return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, name));

@@ -76,7 +76,8 @@
     <!-- </module> -->
 
     <module name="TreeWalker">
-    
+    <!-- see : https://checkstyle.sourceforge.io/config_filters.html#SuppressWarningsFilter_Examples -->
+    <module name="SuppressWarningsHolder" />
     
 
     <property name="tabWidth" value="4"/>
@@ -168,6 +169,7 @@
         <module name="TodoComment"/>
         <module name="UpperEll"/>
     </module>
-    
+    <!-- see : https://checkstyle.sourceforge.io/config_filters.html#SuppressWarningsFilter_Examples -->
+    <module name="SuppressWarningsFilter" />
     
 </module>

@@ -20,12 +20,12 @@ public class Greeting {
         this.content = theContent;
     }
 
-    /** .*/
+    /** @return the id.*/
     public long getId() {
         return id;
     }
 
-    /** .*/
+    /** @return the content*/
     public String getContent() {
         return content;
     }

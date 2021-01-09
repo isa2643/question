@@ -69,12 +69,14 @@ public class ResponseController {
                     userAnswer.setPoints(10);
                 }
             } else {
+                //TODO grp3 by DJE : Algo : votre code serait plus claire en intialisant "isOk" à false et le papssant a OK uniquement lorsque c'est OK.
                 isOk = false;
             }
         } else {
             isOk = false;
         }
 
+        //TODO grp3 by DJE : Algo :pourrait être fait ou tout début, si pas de User, pas de code a éxécuter (sauf pour tracer l'erreur)
         Optional<User> user = userRepo.findById(userId);
 
         if (!user.isEmpty()) {

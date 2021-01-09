@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author djer1
  *
  */
-@SuppressWarnings("checkstyle:HideUtiliyClassConstructor")
+@SuppressWarnings("checkstyle:hideutilityclassconstructor")
 @SpringBootApplication
 public class Launcher {
 

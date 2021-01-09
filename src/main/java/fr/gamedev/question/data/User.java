@@ -19,17 +19,20 @@ public class User {
 
     /** .*/
     @GeneratedValue(generator = "seq_gen_user")
-    @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-            @Parameter(name = "sequence_name", value = "seq_user"), @Parameter(name = "initial_value", value = "0"),
-            @Parameter(name = "increment_size", value = "1") })
+    @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = { @Parameter(name = "sequence_name", value = "seq_user"),
+                    @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
+    //TODO grp3 by DJE : JavaDoc : le @ n'est pas utile.
     /** @login.*/
     private String login;
+    //TODO grp3 by DJE : JavaDoc : le @ n'est pas utile.
     /** @lastName.*/
     private String lastName;
     /** Tag.*/
     @ManyToMany
+    //TODO grp3 by DJE : ORM : cette liste devrait être initialisée.
     private List<Tag> interests;
 
     /**

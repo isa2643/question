@@ -1,5 +1,6 @@
 package fr.gamedev.question.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,22 +18,26 @@ import org.hibernate.annotations.Parameter;
 @Entity
 public class User {
 
-    /** .*/
+    public User() {
+        this.interests = new ArrayList<Tag>();
+    }
+
+    /** id .*/
     @GeneratedValue(generator = "seq_gen_user")
     @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = { @Parameter(name = "sequence_name", value = "seq_user"),
                     @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
-    //TODO grp3 by DJE : JavaDoc : le @ n'est pas utile.
-    /** @login.*/
+
+    /** login.*/
     private String login;
-    //TODO grp3 by DJE : JavaDoc : le @ n'est pas utile.
-    /** @lastName.*/
+
+    /** lastName.*/
     private String lastName;
     /** Tag.*/
     @ManyToMany
-    //TODO grp3 by DJE : ORM : cette liste devrait être initialisée.
+
     private List<Tag> interests;
 
     /**

@@ -54,11 +54,15 @@ public class ResponseController {
         Optional<Question> question = questionRepo.findById(questionId);
         Optional<Answer> answerData;
         String response = "Oops ! Ca n'est pas correcte";
-        boolean isOk = true;
+        Optional<User> user = userRepo.findById(userId);
+        boolean isOk = false;
+        // Point pour une réponse valide
+        final int point = 10;
 
-        if (!question.isEmpty()) {
-
+        if (!question.isEmpty() && !user.isEmpty()) {
+            userAnswer.setUser(user.get());
             answerData = answerRepo.findByQuestion(question.get());
+
             if (!answerData.isEmpty()) {
 
                 if (answer == answerData.get().getCorrectAnswer()) {
@@ -66,23 +70,10 @@ public class ResponseController {
                     userAnswer.setAnswer(answerData.get());
 
                     response = "Bravo ! vous avez trouvé ! ";
-                    userAnswer.setPoints(10);
+                    userAnswer.setPoints(point);
+                    isOk = true;
                 }
-            } else {
-                //TODO grp3 by DJE : Algo : votre code serait plus claire en intialisant "isOk" à false et le papssant a OK uniquement lorsque c'est OK.
-                isOk = false;
             }
-        } else {
-            isOk = false;
-        }
-
-        //TODO grp3 by DJE : Algo :pourrait être fait ou tout début, si pas de User, pas de code a éxécuter (sauf pour tracer l'erreur)
-        Optional<User> user = userRepo.findById(userId);
-
-        if (!user.isEmpty()) {
-            userAnswer.setUser(user.get());
-        } else {
-            isOk = false;
         }
 
         if (isOk) {

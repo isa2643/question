@@ -17,9 +17,9 @@ public class UserAnswer {
 
     /** .*/
     @GeneratedValue(generator = "seq_gen_userAnswer")
-    @GenericGenerator(name = "seq_gen_userAnswer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-            @Parameter(name = "sequence_name", value = "seq_answerUser"),
-            @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
+    @GenericGenerator(name = "seq_gen_userAnswer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = { @Parameter(name = "sequence_name", value = "seq_answerUser"),
+                    @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
 
@@ -30,7 +30,7 @@ public class UserAnswer {
     @ManyToOne
     private Answer answer;
     /** .*/
-    private long points;
+    private Integer points;
 
     /**
      * @return the id
@@ -63,14 +63,14 @@ public class UserAnswer {
     /**
      * @return the points
      */
-    public long getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
     /**
      * @param thePoints the points to set
      */
-    public void setPoints(final long thePoints) {
+    public void setPoints(final Integer thePoints) {
         this.points = thePoints;
     }
 

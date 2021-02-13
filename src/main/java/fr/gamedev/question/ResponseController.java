@@ -3,6 +3,7 @@ package fr.gamedev.question;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,19 +58,35 @@ public class ResponseController {
         Optional<User> user = userRepo.findById(userId);
         boolean isOk = false;
         // Point pour une réponse valide
-        final int point = 10;
+        Integer point = 10;
 
         if (!question.isEmpty() && !user.isEmpty()) {
+
             userAnswer.setUser(user.get());
             answerData = answerRepo.findByQuestion(question.get());
 
             if (!answerData.isEmpty()) {
 
+                Optional<UserAnswer> askedQuestion = userAnswerRepo.findById(answerData.get().getId());
+
+                Assert.isTrue(askedQuestion.isPresent(), "Réponse ignorée : la question ne vous à pas été posée !");
+                Assert.isTrue(askedQuestion.get().getPoints() == null,
+                        "Réponse ignorée : vous avez déja répondu à cette question.");
+
                 if (answer == answerData.get().getCorrectAnswer()) {
+
+                    Optional<UserAnswer> lastUserAnwswer = userAnswerRepo
+                            .findTopByAnswerQuestion(answerData.get().getQuestion(), user.get(), 0);
 
                     userAnswer.setAnswer(answerData.get());
 
                     response = "Bravo ! vous avez trouvé ! ";
+
+                    if (lastUserAnwswer.isPresent()) {
+                        int lastEarnedPoints = lastUserAnwswer.get().getPoints();
+                        point = lastEarnedPoints / 2;
+                    }
+
                     userAnswer.setPoints(point);
                     isOk = true;
                 }

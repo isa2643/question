@@ -16,6 +16,6 @@ import fr.gamedev.question.data.UserAnswer;
 @RepositoryRestResource(collectionResourceRel = "userAnswer", path = "userAnswer")
 public interface UserAnswerRepository extends PagingAndSortingRepository<UserAnswer, Long> {
 
-    Optional<UserAnswer> findTopByAnswerQuestion(Question question, User user, int greaterThan);
+    Optional<UserAnswer> findTopByAnswerQuestionAndUserId(Question question, User user);
 
 }
